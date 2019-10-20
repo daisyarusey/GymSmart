@@ -67,6 +67,20 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
         };
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
