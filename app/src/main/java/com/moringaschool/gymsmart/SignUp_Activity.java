@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -90,11 +91,20 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
+        }else {
+            if (TextUtils.isEmpty(mNameEditText.getText().toString())){
+                mNameEditText.setError("Name is required");
+            }else if (TextUtils.isEmpty(mEmailEditText.getText().toString())){
+                mEmailEditText.setError("Email is required");
+            } else if (TextUtils.isEmpty(mEmailEditText.getText().toString())){
+                mPasswordEditText.setError("Please set your password");
+            }else if(!mConfirmPasswordEditText.getText().toString().equals(mPasswordEditText)){
+                mConfirmPasswordEditText.setError("Password do not match");
+            }else {
+                createNewUser();
+            }
         }
 
-        if (v == mCreateUserButton) {
-            createNewUser();
-        }
     }
 
     private void createNewUser() {
