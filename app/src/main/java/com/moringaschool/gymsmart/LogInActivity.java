@@ -30,6 +30,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();
         mRegisterTextView.setOnClickListener(this);
+        mPasswordLoginButton.setOnClickListener(this);
     }
 
     @Override
