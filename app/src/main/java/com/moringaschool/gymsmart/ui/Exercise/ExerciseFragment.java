@@ -1,6 +1,7 @@
 package com.moringaschool.gymsmart.ui.Exercise;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -35,6 +36,7 @@ import retrofit2.Response;
 public class ExerciseFragment extends Fragment {
 
     @BindView(R.id.exercise_recyclerview) RecyclerView mRecyclerview;
+    private ProgressDialog progressDialog;
 
     private ExerciseListAdapter mAdapter;
 
@@ -66,24 +68,29 @@ public class ExerciseFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.exercise_fragment,container,false);
         ButterKnife.bind(this,view);
-//        return  view;
+progressDialog= new ProgressDialog(getContext());
 
         WgaApi client = WgaClient.getClient();
 
         Call<WgaResponse> call = client.getExersices();
         call.enqueue(new Callback<WgaResponse>() {
+
             @Override
             public void onResponse(Call<WgaResponse> call, Response<WgaResponse> response) {
                 if (response.isSuccessful()){
+
                     exercises= response.body().getResults();
                     mAdapter=new ExerciseListAdapter(ExerciseFragment.this,exercises);
                     mRecyclerview.setAdapter(mAdapter);
 
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                     mRecyclerview.setLayoutManager(layoutManager);
-                    mRecyclerview.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.HORIZONTAL));
+                    mRecyclerview.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
+
+
 
                     mRecyclerview.setHasFixedSize(true);
+
 
                     showExercise();
                 }else {
