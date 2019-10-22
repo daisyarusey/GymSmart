@@ -3,6 +3,7 @@ package com.moringaschool.gymsmart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,6 +29,8 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
     public static final String TAG = SignUp_Activity.class.getSimpleName();
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    private ProgressDialog mAuthProgressDialog;
+
     private FirebaseAuth mAuth;
     @BindView(R.id.createUserButton) Button mCreateUserButton;
     @BindView(R.id.nameEditText) EditText mNameEditText;
@@ -49,6 +52,14 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
 
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
+        createAuthProgressDialog();
+    }
+
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
 
     private void createAuthStateListener() {
@@ -121,24 +132,12 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
             finish();
         }else {
-            if (TextUtils.isEmpty(mNameEditText.getText().toString())){
-                mNameEditText.setError("Name is required");
-            }else if (TextUtils.isEmpty(mEmailEditText.getText().toString())){
-                mEmailEditText.setError("Email is required");
-            } else if (TextUtils.isEmpty(mEmailEditText.getText().toString())){
-                mPasswordEditText.setError("Please set your password");
-            }
-//            else if(!(mConfirmPasswordEditText.getText().toString()).equals(mPasswordEditText)){
-//                mConfirmPasswordEditText.setError("Password do not match");
-//            }
-            else {
+
                 createNewUser();
-                Intent intent = new Intent(SignUp_Activity.this,MainActivity.class);
-                startActivity(intent);
+
             }
         }
 
-    }
 
     private void createNewUser() {
         final String name = mNameEditText.getText().toString().trim();
@@ -146,15 +145,27 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
         final String password = mPasswordEditText.getText().toString().trim();
         final String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
 
+        boolean validEmail = isValidEmail(email);
+        boolean validName = isValidName(name);
+        boolean validPassword = isValidPassword(password, confirmPassword);
+        if (!validEmail || !validName || !validPassword) return;
+
+        mAuthProgressDialog.show();
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Authentication successful");
+
+                            Intent intent = new Intent(SignUp_Activity.this,MainActivity.class);
+                            startActivity(intent);
+                            mAuthProgressDialog.dismiss();
                         } else {
                             Toast.makeText(SignUp_Activity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            mAuthProgressDialog.dismiss();
                         }
                     }
                 });
