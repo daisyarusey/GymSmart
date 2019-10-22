@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".LogInActivity">
     <LinearLayout
         android:orientation="vertical"
@@ -56,6 +57,7 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
+            android:textColor="@color/colorAccent"
             android:text="Don't have an account? Sign up here!"
             android:id="@+id/registerTextView"
             android:layout_gravity="center_horizontal" />

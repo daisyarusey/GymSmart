@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.moringaschool.gymsmart.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:id="@+id/navigation_exercise"
+        android:name="com.moringaschool.gymsmart.ui.Exercise.ExerciseFragment"
+        android:label="@string/title_exercise"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.moringaschool.gymsmart.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_account"
+        android:name="com.moringaschool.gymsmart.ui.Profile.ProfileFragment"
+        android:label="Account"
+        tools:layout="@layout/profile_fragment" />
 </navigation>

@@ -98,10 +98,14 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                 mEmailEditText.setError("Email is required");
             } else if (TextUtils.isEmpty(mEmailEditText.getText().toString())){
                 mPasswordEditText.setError("Please set your password");
-            }else if(!mConfirmPasswordEditText.getText().toString().equals(mPasswordEditText)){
-                mConfirmPasswordEditText.setError("Password do not match");
-            }else {
+            }
+//            else if(!(mConfirmPasswordEditText.getText().toString()).equals(mPasswordEditText)){
+//                mConfirmPasswordEditText.setError("Password do not match");
+//            }
+            else {
                 createNewUser();
+                Intent intent = new Intent(SignUp_Activity.this,MainActivity.class);
+                startActivity(intent);
             }
         }
 

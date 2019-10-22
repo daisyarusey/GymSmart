@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp_Activity">
+    tools:context=".SignUp_Activity"
+    android:background="@drawable/bg">
 
     <LinearLayout
         android:orientation="vertical"
@@ -82,6 +83,7 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
+            android:textColor="@color/colorAccent"
             android:text="Already have an account? Log in here!"
             android:id="@+id/loginTextView"
             android:layout_gravity="center_horizontal" />
