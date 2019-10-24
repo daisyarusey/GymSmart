@@ -36,7 +36,6 @@ import retrofit2.Response;
 public class ExerciseFragment extends Fragment {
 
     @BindView(R.id.exercise_recyclerview) RecyclerView mRecyclerview;
-    private ProgressDialog progressDialog;
 
     private ExerciseListAdapter mAdapter;
 
@@ -68,7 +67,7 @@ public class ExerciseFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.exercise_fragment,container,false);
         ButterKnife.bind(this,view);
-progressDialog= new ProgressDialog(getContext());
+
 
         WgaApi client = WgaClient.getClient();
 

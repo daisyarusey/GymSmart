@@ -3,4 +3,6 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#2980B9</color>
+    <color name="gradientFirstcolor">#29323c</color>
+    <color name="gradientSecondColor">#485563</color>
 </resources>
