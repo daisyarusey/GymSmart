@@ -16,6 +16,22 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/user_profile_image_background"
+            android:src="@drawable/ic_boy"
+            android:layout_gravity="center_horizontal"/>
+
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
@@ -90,13 +106,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_above="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

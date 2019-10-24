@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = LogInActivity.class.getSimpleName();
-    @BindView(R.id.registerTextView) TextView mRegisterTextView;
+    @BindView(R.id.registerText) TextView mRegisterTextView;
     @BindView(R.id.passwordLoginButton) Button mPasswordLoginButton;
     @BindView(R.id.emailEditText) EditText mEmailEditText;
     @BindView(R.id.passwordEditText) EditText mPasswordEditText;
