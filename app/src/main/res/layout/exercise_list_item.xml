@@ -31,5 +31,12 @@
         android:id="@+id/equipments_list"
         android:textColor="@android:color/white"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_button"
+        android:text="Save Exercise"
+        android:visibility="invisible"/>
+
 
 </LinearLayout>
