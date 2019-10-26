@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/save_button"
         android:text="Save Exercise"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
 
 
 </LinearLayout>

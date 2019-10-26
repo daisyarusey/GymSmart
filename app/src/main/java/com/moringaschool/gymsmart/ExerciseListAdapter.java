@@ -5,6 +5,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,12 +49,13 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         return mExercises.size();
     }
 
-    public class ExerciseViewHolder extends RecyclerView.ViewHolder{
+    public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.exerciseName) TextView mName;
         @BindView(R.id.exercise_desc) TextView mDescription;
         @BindView(R.id.category) TextView mCategory;
         @BindView(R.id.muscles_list) ListView mMuscles;
         @BindView(R.id.equipments_list) ListView mEquipments;
+        @BindView(R.id.save_button) Button saveExercise;
 
         private Context mContext;
 
@@ -62,6 +64,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
             ButterKnife.bind(this,itemView);
             mContext = itemView.getContext();
+
+            itemView.setOnClickListener(this);
         }
 
         public void bindExercise(Result exercise){
@@ -72,5 +76,13 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 //            mMuscles.set;
 //            mEquipments.setAdapter((ListAdapter) exercise.getEquipment());
         }
-            }
+
+        @Override
+        public void onClick(View v) {
+            int itemPosition = getLayoutPosition();
+            saveExercise.setVisibility(View.VISIBLE);
+
+
+        }
+    }
 }
