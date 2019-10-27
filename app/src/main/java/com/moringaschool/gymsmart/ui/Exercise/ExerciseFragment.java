@@ -1,8 +1,6 @@
 package com.moringaschool.gymsmart.ui.Exercise;
 
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -15,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moringaschool.gymsmart.ExerciseDetailsResponse;
 import com.moringaschool.gymsmart.ExerciseListAdapter;
 import com.moringaschool.gymsmart.R;
 import com.moringaschool.gymsmart.Result;
 import com.moringaschool.gymsmart.WgaApi;
 import com.moringaschool.gymsmart.WgaClient;
-import com.moringaschool.gymsmart.WgaResponse;
 
 import java.util.List;
 
@@ -71,11 +69,11 @@ public class ExerciseFragment extends Fragment {
 
         WgaApi client = WgaClient.getClient();
 
-        Call<WgaResponse> call = client.getExersices();
-        call.enqueue(new Callback<WgaResponse>() {
+        Call<ExerciseDetailsResponse> call = client.getExersices();
+        call.enqueue(new Callback<ExerciseDetailsResponse>() {
 
             @Override
-            public void onResponse(Call<WgaResponse> call, Response<WgaResponse> response) {
+            public void onResponse(Call<ExerciseDetailsResponse> call, Response<ExerciseDetailsResponse> response) {
                 if (response.isSuccessful()){
 
                     exercises= response.body().getResults();
@@ -98,7 +96,7 @@ public class ExerciseFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<WgaResponse> call, Throwable t) {
+            public void onFailure(Call<ExerciseDetailsResponse> call, Throwable t) {
 
 
             }

@@ -53,9 +53,6 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @BindView(R.id.exerciseName) TextView mName;
         @BindView(R.id.exercise_desc) TextView mDescription;
         @BindView(R.id.category) TextView mCategory;
-        @BindView(R.id.muscles_list) ListView mMuscles;
-        @BindView(R.id.equipments_list) ListView mEquipments;
-        @BindView(R.id.save_button) Button saveExercise;
 
         private Context mContext;
 
@@ -70,17 +67,16 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         public void bindExercise(Result exercise){
             mName.setText("Exercise name" + " " + exercise.getName());
-            mCategory.setText("Category" + " " + String.valueOf(exercise.getCategory()));
+            mCategory.setText("Category" + " " + String.valueOf(exercise.getCategory().getName()));
             mDescription.setText( "Description \n"+ " "+ Html.escapeHtml(exercise.getDescription()));
 
-//            mMuscles.set;
-//            mEquipments.setAdapter((ListAdapter) exercise.getEquipment());
+//
         }
 
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            saveExercise.setVisibility(View.VISIBLE);
+
 
 
         }

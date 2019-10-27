@@ -1,11 +1,11 @@
 
-package com.moringaschool.gymsmart; ;
+package com.moringaschool.gymsmart;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WgaResponse {
+public class ExerciseDetailsResponse {
 
     @SerializedName("count")
     @Expose
@@ -24,7 +24,7 @@ public class WgaResponse {
      * No args constructor for use in serialization
      * 
      */
-    public WgaResponse() {
+    public ExerciseDetailsResponse() {
     }
 
     /**
@@ -34,7 +34,7 @@ public class WgaResponse {
      * @param count
      * @param results
      */
-    public WgaResponse(Integer count, String next, Object previous, List<Result> results) {
+    public ExerciseDetailsResponse(Integer count, String next, Object previous, List<Result> results) {
         super();
         this.count = count;
         this.next = next;
