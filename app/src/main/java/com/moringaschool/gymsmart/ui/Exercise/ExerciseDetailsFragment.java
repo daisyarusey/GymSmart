@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.moringaschool.gymsmart.Equipment;
+import com.moringaschool.gymsmart.Muscle;
 import com.moringaschool.gymsmart.R;
 import com.moringaschool.gymsmart.Result;
 
@@ -29,8 +31,8 @@ public class ExerciseDetailsFragment extends Fragment {
     @BindView(R.id.exerciseName) TextView mName;
     @BindView(R.id.exercise_desc) TextView mDescription;
     @BindView(R.id.category) TextView mCategory;
-    @BindView(R.id.muscles_list) ListView mMuscles;
-    @BindView(R.id.equipments_list) ListView mEquipments;
+    @BindView(R.id.muscles_list) TextView mMuscles;
+    @BindView(R.id.equipments_list) TextView mEquipments;
     @BindView(R.id.saveButton) Button saveExercise;
 
     private Result mExercise;
@@ -65,7 +67,19 @@ public class ExerciseDetailsFragment extends Fragment {
         ButterKnife.bind(this,view);
 
         List<String> muscles = new ArrayList<>();
-       
+        List<String> equipments = new ArrayList<>();
+        for (Muscle muscle: mExercise.getMuscles()){
+            muscles.add(muscle.getName());
+        }
+        for (Equipment equipment: mExercise.getEquipment()){
+            equipments.add(equipment.getName());
+        }
+
+       mName.setText(mExercise.getName());
+        mDescription.setText(mExercise.getDescription());
+        mCategory.setText(mExercise.getCategory().getName());
+        mMuscles.setText(android.text.TextUtils.join(",",muscles));
+        mEquipments.setText(android.text.TextUtils.join(",",equipments));
 
         return view;
     }

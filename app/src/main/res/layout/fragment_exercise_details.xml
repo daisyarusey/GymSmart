@@ -25,12 +25,12 @@
             android:id="@+id/category"
             android:textColor="@android:color/white"/>
 
-        <ListView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/muscles_list"
             android:textColor="@android:color/white" />
-        <ListView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/equipments_list"
