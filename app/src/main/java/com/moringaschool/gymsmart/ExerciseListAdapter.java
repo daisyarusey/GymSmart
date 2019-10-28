@@ -55,7 +55,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @BindView(R.id.category) TextView mCategory;
         @BindView(R.id.muscles_list) ListView mMuscles;
         @BindView(R.id.equipments_list) ListView mEquipments;
-        @BindView(R.id.save_button) Button saveExercise;
+
 
         private Context mContext;
 
@@ -80,7 +80,6 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            saveExercise.setVisibility(View.VISIBLE);
 
 
         }

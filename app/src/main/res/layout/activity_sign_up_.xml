@@ -27,10 +27,12 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:id="@+id/profpic"
             android:background="@drawable/user_profile_image_background"
             android:src="@drawable/ic_boy"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:maxWidth="90dp"
+            android:maxHeight="90dp"/>
 
         <EditText
             android:id="@+id/nameEditText"
