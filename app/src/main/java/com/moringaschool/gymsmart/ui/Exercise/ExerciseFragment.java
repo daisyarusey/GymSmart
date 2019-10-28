@@ -113,7 +113,7 @@ public class ExerciseFragment extends Fragment {
 
     }
     Result deleteExercise = null;
-    List<Result> archievedExercises = new ArrayList<>();
+    List<Result> archivedExercises = new ArrayList<>();
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -140,6 +140,20 @@ public class ExerciseFragment extends Fragment {
                     break;
 
                 case ItemTouchHelper.RIGHT:
+                    Result exerciseName = exercises.get(postion);
+                    archivedExercises.add(exerciseName);
+
+                    exercises.remove(postion);
+                    mAdapter.notifyItemRemoved(postion);
+                    Snackbar.make(mRecyclerview,"Exercise Archived",Snackbar.LENGTH_LONG)
+                            .setAction("Undo", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    archivedExercises.remove(archivedExercises.lastIndexOf(exerciseName));
+                                    exercises.add(postion,exerciseName);
+                                    mAdapter.notifyItemInserted(postion);
+                                }
+                            }).show();
                     break;
             }
 
