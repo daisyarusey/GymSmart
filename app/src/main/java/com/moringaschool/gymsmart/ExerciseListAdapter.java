@@ -1,19 +1,20 @@
 package com.moringaschool.gymsmart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.moringaschool.gymsmart.ui.Exercise.ExerciseDetail;
 import com.moringaschool.gymsmart.ui.Exercise.ExerciseFragment;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ import butterknife.ButterKnife;
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder> {
 
     private List<Result> mExercises;
-    private ExerciseFragment mcontext;
+    private ExerciseFragment mContext;
 
     public ExerciseListAdapter(ExerciseFragment context, List<Result> exercises){
-        mcontext=context;
+        mContext=context;
         mExercises=exercises;
     }
 
@@ -76,6 +77,10 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+            Intent intent = new Intent(mContext,ExerciseDetail.class);
+            intent.putExtra("position",itemPosition);
+            intent.putExtra("exercises", Parcels.wrap(mExercises));
+            mContext.startActivity(intent);
 
 
 
