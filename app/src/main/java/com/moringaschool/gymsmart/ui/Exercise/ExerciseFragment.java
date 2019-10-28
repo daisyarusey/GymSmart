@@ -119,6 +119,13 @@ public class ExerciseFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            switch (direction){
+                case ItemTouchHelper.LEFT:
+                    break;
+
+                case ItemTouchHelper.RIGHT:
+                    break;;
+            }
 
         }
     };
