@@ -1,4 +1,4 @@
-package com.moringaschool.gymsmart;
+package com.moringaschool.gymsmart.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.moringaschool.gymsmart.LogInActivity;
+import com.moringaschool.gymsmart.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
