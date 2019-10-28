@@ -134,12 +134,19 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
-        }else {
+        }else if (v==profile){
+            takPictureIntent();
+        }
+        else {
 
                 createNewUser();
 
             }
         }
+
+    private void takPictureIntent() {
+
+    }
 
 
     private void createNewUser() {
