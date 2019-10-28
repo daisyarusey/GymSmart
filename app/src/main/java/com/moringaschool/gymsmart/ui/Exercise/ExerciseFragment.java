@@ -1,13 +1,13 @@
 package com.moringaschool.gymsmart.ui.Exercise;
 
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moringaschool.gymsmart.ExerciseDetailsResponse;
 import com.moringaschool.gymsmart.ExerciseListAdapter;
 import com.moringaschool.gymsmart.R;
 import com.moringaschool.gymsmart.Result;
 import com.moringaschool.gymsmart.WgaApi;
 import com.moringaschool.gymsmart.WgaClient;
-import com.moringaschool.gymsmart.WgaResponse;
 
 import java.util.List;
 
@@ -71,11 +71,11 @@ public class ExerciseFragment extends Fragment {
 
         WgaApi client = WgaClient.getClient();
 
-        Call<WgaResponse> call = client.getExersices();
-        call.enqueue(new Callback<WgaResponse>() {
+        Call<ExerciseDetailsResponse> call = client.getExersices();
+        call.enqueue(new Callback<ExerciseDetailsResponse>() {
 
             @Override
-            public void onResponse(Call<WgaResponse> call, Response<WgaResponse> response) {
+            public void onResponse(Call<ExerciseDetailsResponse> call, Response<ExerciseDetailsResponse> response) {
                 if (response.isSuccessful()){
 
                     exercises= response.body().getResults();
@@ -98,13 +98,29 @@ public class ExerciseFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<WgaResponse> call, Throwable t) {
+            public void onFailure(Call<ExerciseDetailsResponse> call, Throwable t) {
 
 
             }
         });
-
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerview);
         return  view;
+
+
+
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
 
 }

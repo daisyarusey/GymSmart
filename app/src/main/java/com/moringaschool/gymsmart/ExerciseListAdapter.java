@@ -1,19 +1,20 @@
 package com.moringaschool.gymsmart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.moringaschool.gymsmart.ui.Exercise.ExerciseDetail;
 import com.moringaschool.gymsmart.ui.Exercise.ExerciseFragment;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ import butterknife.ButterKnife;
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder> {
 
     private List<Result> mExercises;
-    private ExerciseFragment mcontext;
+    private ExerciseFragment mContext;
 
     public ExerciseListAdapter(ExerciseFragment context, List<Result> exercises){
-        mcontext=context;
+        mContext=context;
         mExercises=exercises;
     }
 
@@ -53,8 +54,6 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @BindView(R.id.exerciseName) TextView mName;
         @BindView(R.id.exercise_desc) TextView mDescription;
         @BindView(R.id.category) TextView mCategory;
-        @BindView(R.id.muscles_list) ListView mMuscles;
-        @BindView(R.id.equipments_list) ListView mEquipments;
 
 
         private Context mContext;
@@ -70,16 +69,22 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         public void bindExercise(Result exercise){
             mName.setText("Exercise name" + " " + exercise.getName());
-            mCategory.setText("Category" + " " + String.valueOf(exercise.getCategory()));
+            mCategory.setText("Category" + " " + String.valueOf(exercise.getCategory().getName()));
             mDescription.setText( "Description \n"+ " "+ Html.escapeHtml(exercise.getDescription()));
 
-//            mMuscles.set;
-//            mEquipments.setAdapter((ListAdapter) exercise.getEquipment());
+//
         }
 
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+
+            Intent intent = new Intent(mContext,ExerciseDetail.class);
+            intent.putExtra("position",itemPosition);
+            intent.putExtra("exercises", Parcels.wrap(mExercises));
+            mContext.startActivity(intent);
+
+
 
 
         }
