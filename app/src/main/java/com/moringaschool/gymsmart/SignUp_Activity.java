@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,9 @@ import butterknife.ButterKnife;
 
 public class SignUp_Activity extends AppCompatActivity implements View.OnClickListener {
 
+    static  int REQUESCODE = 1;
+    static  int PReqCode = 1;
+    Uri pickedImgUrl;
     public static final String TAG = SignUp_Activity.class.getSimpleName();
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -138,27 +142,37 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
             takPictureIntent();
         }
         else {
+            final String name = mNameEditText.getText().toString().trim();
+            final String email = mEmailEditText.getText().toString().trim();
+            final String password = mPasswordEditText.getText().toString().trim();
+            final String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
 
-                createNewUser();
+            boolean validEmail = isValidEmail(email);
+            boolean validName = isValidName(name);
+            boolean validPassword = isValidPassword(password, confirmPassword);
+            if (!validEmail || !validName || !validPassword) {
+                return;
+            }else {
+                createNewUser(name,email,password);
+            }
+
 
             }
         }
 
     private void takPictureIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+
 
     }
 
 
-    private void createNewUser() {
-        final String name = mNameEditText.getText().toString().trim();
-        final String email = mEmailEditText.getText().toString().trim();
-        final String password = mPasswordEditText.getText().toString().trim();
-        final String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
+    private void createNewUser(String name,String email,String password) {
 
-        boolean validEmail = isValidEmail(email);
-        boolean validName = isValidName(name);
-        boolean validPassword = isValidPassword(password, confirmPassword);
-        if (!validEmail || !validName || !validPassword) return;
+
+
 
         mAuthProgressDialog.show();
 
@@ -169,6 +183,7 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Authentication successful");
 
+                            updateUserInfo(name,pickedImgUrl,mAuth.getCurrentUser());
                             Intent intent = new Intent(SignUp_Activity.this,MainActivity.class);
                             startActivity(intent);
                             mAuthProgressDialog.dismiss();
@@ -180,6 +195,10 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
 
+
+    }
+
+    private void updateUserInfo(String name, Uri pickedImgUrl, FirebaseUser currentUser) {
 
     }
 }
