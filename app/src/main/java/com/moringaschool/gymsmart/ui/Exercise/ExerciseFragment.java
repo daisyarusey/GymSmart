@@ -119,12 +119,15 @@ public class ExerciseFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int postion  = viewHolder.getAdapterPosition();
             switch (direction){
                 case ItemTouchHelper.LEFT:
+                    exercises.remove(postion);
+                    mAdapter.notifyItemRemoved(postion);
                     break;
 
                 case ItemTouchHelper.RIGHT:
-                    break;;
+                    break;
             }
 
         }
