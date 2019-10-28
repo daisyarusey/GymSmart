@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.moringaschool.gymsmart.ExerciseDetailsResponse;
 import com.moringaschool.gymsmart.ExerciseListAdapter;
 import com.moringaschool.gymsmart.R;
@@ -110,6 +111,7 @@ public class ExerciseFragment extends Fragment {
 
 
     }
+    Result deleteExercise = null;
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -122,8 +124,17 @@ public class ExerciseFragment extends Fragment {
             int postion  = viewHolder.getAdapterPosition();
             switch (direction){
                 case ItemTouchHelper.LEFT:
+                    deleteExercise= exercises.get(postion);
                     exercises.remove(postion);
                     mAdapter.notifyItemRemoved(postion);
+                    Snackbar.make(mRecyclerview,"Deleted Exercise",Snackbar.LENGTH_LONG)
+                            .setAction("Undo", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    exercises.add(postion,deleteExercise);
+                                    mAdapter.notifyItemInserted(postion);
+                                }
+                            }).show();
                     break;
 
                 case ItemTouchHelper.RIGHT:
