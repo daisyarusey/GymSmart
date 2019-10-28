@@ -55,6 +55,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @BindView(R.id.exercise_desc) TextView mDescription;
         @BindView(R.id.category) TextView mCategory;
 
+
         private Context mContext;
 
         public ExerciseViewHolder(View itemView){
@@ -77,10 +78,12 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+
             Intent intent = new Intent(mContext,ExerciseDetail.class);
             intent.putExtra("position",itemPosition);
             intent.putExtra("exercises", Parcels.wrap(mExercises));
             mContext.startActivity(intent);
+
 
 
 
