@@ -23,6 +23,7 @@ import com.moringaschool.gymsmart.Result;
 import com.moringaschool.gymsmart.WgaApi;
 import com.moringaschool.gymsmart.WgaClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -112,6 +113,7 @@ public class ExerciseFragment extends Fragment {
 
     }
     Result deleteExercise = null;
+    List<Result> archievedExercises = new ArrayList<>();
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
