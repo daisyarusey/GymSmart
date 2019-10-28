@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.passwordEditText) EditText mPasswordEditText;
     @BindView(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
     @BindView(R.id.loginTextView) TextView mLoginTextView;
+    @BindView(R.id.profpic) ImageView profile;
 
 
     @Override
@@ -49,6 +51,7 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
+        profile.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
