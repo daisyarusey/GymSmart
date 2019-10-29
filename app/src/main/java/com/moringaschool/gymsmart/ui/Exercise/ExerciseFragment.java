@@ -40,7 +40,8 @@ import retrofit2.Response;
  */
 public class ExerciseFragment extends Fragment {
 
-    @BindView(R.id.exercise_recyclerview) RecyclerView mRecyclerview;
+    @BindView(R.id.exercise_recyclerview)
+    RecyclerView mRecyclerview;
 
     private ExerciseListAdapter mAdapter;
 
@@ -57,7 +58,6 @@ public class ExerciseFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
     }
 
     private void showUnsuccessfulMessage() {
@@ -70,8 +70,8 @@ public class ExerciseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.exercise_fragment,container,false);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.exercise_fragment, container, false);
+        ButterKnife.bind(this, view);
 
 
         WgaApi client = WgaClient.getClient();
@@ -81,10 +81,10 @@ public class ExerciseFragment extends Fragment {
 
             @Override
             public void onResponse(Call<ExerciseDetailsResponse> call, Response<ExerciseDetailsResponse> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
-                    exercises= response.body().getResults();
-                    mAdapter=new ExerciseListAdapter(ExerciseFragment.this,exercises);
+                    exercises = response.body().getResults();
+                    mAdapter = new ExerciseListAdapter(ExerciseFragment.this, exercises);
                     mRecyclerview.setAdapter(mAdapter);
 
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -92,12 +92,11 @@ public class ExerciseFragment extends Fragment {
                     mRecyclerview.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
 
 
-
                     mRecyclerview.setHasFixedSize(true);
 
 
                     showExercise();
-                }else {
+                } else {
 
                 }
             }
@@ -110,15 +109,15 @@ public class ExerciseFragment extends Fragment {
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
-        return  view;
-
+        return view;
 
 
     }
+
     Result deleteExercise = null;
     List<Result> archivedExercises = new ArrayList<>();
 
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -126,17 +125,17 @@ public class ExerciseFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            int postion  = viewHolder.getAdapterPosition();
-            switch (direction){
+            int postion = viewHolder.getAdapterPosition();
+            switch (direction) {
                 case ItemTouchHelper.LEFT:
-                    deleteExercise= exercises.get(postion);
+                    deleteExercise = exercises.get(postion);
                     exercises.remove(postion);
                     mAdapter.notifyItemRemoved(postion);
-                    Snackbar.make(mRecyclerview,"Deleted Exercise",Snackbar.LENGTH_LONG)
+                    Snackbar.make(mRecyclerview, "Deleted Exercise", Snackbar.LENGTH_LONG)
                             .setAction("Undo", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    exercises.add(postion,deleteExercise);
+                                    exercises.add(postion, deleteExercise);
                                     mAdapter.notifyItemInserted(postion);
                                 }
                             }).show();
@@ -148,12 +147,12 @@ public class ExerciseFragment extends Fragment {
 
                     exercises.remove(postion);
                     mAdapter.notifyItemRemoved(postion);
-                    Snackbar.make(mRecyclerview,"Exercise Archived",Snackbar.LENGTH_LONG)
+                    Snackbar.make(mRecyclerview, "Exercise Archived", Snackbar.LENGTH_LONG)
                             .setAction("Undo", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     archivedExercises.remove(archivedExercises.lastIndexOf(exerciseName));
-                                    exercises.add(postion,exerciseName);
+                                    exercises.add(postion, exerciseName);
                                     mAdapter.notifyItemInserted(postion);
                                 }
                             }).show();
@@ -165,9 +164,9 @@ public class ExerciseFragment extends Fragment {
         @Override
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorDeleteRed))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorDeleteRed))
                     .addSwipeLeftActionIcon(R.drawable.ic_delete_black_24dp)
-                    .addSwipeRightBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorArchiveGreen))
+                    .addSwipeRightBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorArchiveGreen))
                     .addSwipeRightActionIcon(R.drawable.ic_archive_black_24dp)
                     .create()
                     .decorate();

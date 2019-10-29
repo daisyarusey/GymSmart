@@ -3,6 +3,7 @@ package com.moringaschool.gymsmart;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+
+            Log.i("Another blah blah", String.valueOf(itemPosition));
 
             Intent intent = new Intent(mContext,ExerciseDetail.class);
             intent.putExtra("position",itemPosition);

@@ -1,10 +1,12 @@
 package com.moringaschool.gymsmart.ui.Exercise;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class ExerciseDetailFragment extends Fragment {
     @BindView(R.id.saveExerciseButton) Button saveExercise;
 
     private Result mExercise;
+    private List<Result> exercises;
 
 
     public ExerciseDetailFragment() {
@@ -47,17 +50,15 @@ public class ExerciseDetailFragment extends Fragment {
 
         ExerciseDetailFragment exerciseDetailsFragment = new ExerciseDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable("exercise", Parcels.wrap(exercise));
-        exerciseDetailsFragment.setArguments(args);
+
+        Object test = args.get("exercise");
         return exerciseDetailsFragment;
 
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mExercise = Parcels.unwrap(getArguments().getParcelable("exercises"));
-        }
+
     }
 
 
@@ -67,21 +68,34 @@ public class ExerciseDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exercise_detail,container,false);
         ButterKnife.bind(this,view);
 
+
+        Intent intent = getActivity().getIntent();
+
+        if(intent != null) {
+            Integer exercisePosition = intent.getExtras().getInt("position");
+            exercises = Parcels.unwrap(intent.getParcelableExtra("exercises"));
+
+            mExercise = exercises.get(exercisePosition);
+        }
+
         List<String> muscles = new ArrayList<>();
         List<String> equipments = new ArrayList<>();
 
-        for (Muscle muscle: mExercise.getMuscles()){
-            muscles.add(muscle.getName());
-        }
-        for (Equipment equipment: mExercise.getEquipment()){
-            equipments.add(equipment.getName());
-        }
 
-        mName.setText(mExercise.getName());
-        mDescription.setText(mExercise.getDescription());
-        mCategory.setText(mExercise.getCategory().getName());
-        mMuscles.setText(android.text.TextUtils.join(",",muscles));
-        mEquipments.setText(android.text.TextUtils.join(",",equipments));
+       if(mExercise != null) {
+           for (Muscle muscle: mExercise.getMuscles()){
+               muscles.add(muscle.getName());
+           }
+           for (Equipment equipment: mExercise.getEquipment()){
+               equipments.add(equipment.getName());
+           }
+
+           mName.setText(mExercise.getName());
+           mDescription.setText(mExercise.getDescription());
+           mCategory.setText(mExercise.getCategory().getName());
+           mMuscles.setText(android.text.TextUtils.join(",",muscles));
+           mEquipments.setText(android.text.TextUtils.join(",",equipments));
+       }
 
         return view;
     }
